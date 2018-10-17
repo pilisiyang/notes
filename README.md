@@ -117,3 +117,11 @@ uname -r
 ```
 
 如果你的内核版本也是3.13，而且清理磁盘没能成功，不妨重启一下Docker。当然，这个晚上操作比较靠谱。
+
+K8S nodeport 模式无法联通原因:
+
+docker 在 1.13 版本之后，将系统iptables 中 FORWARD 链的默认策略设置为 DROP
+
+需要在每台node上修改 iptables -P FORWARD ACCEPT
+
+sudo find /var/lib/docker/containers/ -name *-json.log | xargs sudo rm -rf
